@@ -25,7 +25,7 @@
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/plans"
+          <a class="nav-link" routerLink="/plans" *ngIf="isLoggedIn"
             ><i class="bi bi-grid-fill"></i> Plans</a
           >
         </li>
@@ -58,7 +58,9 @@
               >
             </li>
             <li>
-              <a class="dropdown-item" routerLink="/registration"><i class="bi bi-person-plus-fill"></i> Registor</a>
+              <a class="dropdown-item" routerLink="/registration"
+                ><i class="bi bi-person-plus-fill"></i> Registor</a
+              >
             </li>
             <li *ngIf="isLoggedIn">
               <a class="dropdown-item" (click)="logOut()"
@@ -72,6 +74,5 @@
   </div>
 </nav>
 <div class="container-fluid">
- 
   <router-outlet></router-outlet>
 </div>

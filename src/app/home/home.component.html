@@ -1,1 +1,127 @@
-<p>home works!</p>
+<div class="container home_container">
+  <div class="row h-100">
+    <div class="col-md-6 d-flex">
+      <div class="home_left align-self-center w-100">
+        <h1>
+          Welcome to recharge website<br /><span>Best way to recharge</span>
+        </h1>
+        <div class="row">
+          <form
+            class="row g-2"
+  
+            autocomplete="off"
+          >
+            <div class="col-md-6">
+              <label class="form-label" for="f_name">First Name</label>
+              <input
+                type="text"
+                name="f_name"
+                formControlName="f_name"
+                autocomplete="off"
+                class="form-control"
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="l_name">Last Name</label>
+              <input
+                type="text"
+                name="l_name"
+                formControlName="l_name"
+                autocomplete="off"
+                class="form-control"
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="email">Email</label>
+              <input
+                type="email"
+                name="email"
+                formControlName="email"
+                autocomplete="off"
+                class="form-control"
+              />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="password">Password</label>
+              <input
+                type="password"
+                name="password"
+                formControlName="password"
+                autocomplete="off"
+                class="form-control"
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="user_type" class="form-label">User Type</label>
+              <select
+                formControlName="user_type"
+                class="form-select"
+                aria-label="Default select example"
+              >
+                <option selected>Open this select menu</option>
+                <option value="1">Master Agent</option>
+                <option value="2">Agent</option>
+                <option value="3">User</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="mobile">Mobile</label>
+              <input
+                type="tel"
+                name="mobile"
+                formControlName="mobile"
+                autocomplete="off"
+                class="form-control"
+              />
+            </div>
+
+            <div class="col-md-6">
+              <label for="country" class="form-label">Country</label>
+              <select
+                formControlName="country"
+                class="form-select"
+                aria-label="Select country"
+              >
+                <option selected>Open this select menu</option>
+                <option value="Haiti">Haiti</option>
+                <option value="Dominican Republic">Dominican Republic</option>
+                <option value="Chile">Chile</option>
+                <option value="Mexico">Mexico</option>
+                <option value="Panama">Panama</option>
+                <option value="Bolivia">Bolivia</option>
+                <option value="Ecuador">Ecuador</option>
+                <option value="colombia">colombia</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label for="country" class="form-label">Language</label>
+              <select
+                formControlName="language"
+                class="form-select"
+                aria-label="Select language"
+              >
+                <option selected>Open this select menu</option>
+                <option value="Haiti">Tamil</option>
+                <option value="Dominican Republic">English</option>
+                <option value="Dominican Republic">Telegu</option>
+              </select>
+            </div>
+            <div>
+              <button type="submit" class="btn btn-success float-end">
+                Register
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 d-flex">
+      <img
+        src="../../assets/img/vector-art-2 (1).png"
+        alt=""
+        class="align-self-center w-100"
+      />
+    </div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+.home_container {
+  height: calc(100vh - 56px);
+}
+.home_left {
+  h1 {
+    text-align: right;
+    font-size: 2.5rem;
+    line-height: 2rem;
+
+    span {
+      font-size: 1.5rem;
+    }
+  }
+}

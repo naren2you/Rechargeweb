@@ -9,12 +9,17 @@ import { AuthService } from './services/auth.service';
 import { AuthGuard } from './auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ListPlansComponent } from './pages/plans/list-plans/list-plans.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'registration', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
+  {
+    path: 'registration',
+    component: RegisterComponent,
+    canActivate: [AuthGuard],
+  },
   {
     path: 'dashboard',
     component: DashboardComponent,
@@ -23,7 +28,9 @@ const routes: Routes = [
   {
     path: 'plans',
     component: ListPlansComponent,
+    canActivate: [AuthGuard],
   },
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({

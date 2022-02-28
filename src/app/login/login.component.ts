@@ -9,6 +9,7 @@ import {
 import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private dataService: ApiService,
+    private authService: AuthService,
     private router: Router
   ) {
     this.loginForm = this.fb.group({
@@ -31,18 +33,13 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+  }
 
   postData(loginform: any) {
-    this.dataService.userLogin(loginform.getRawValue()).subscribe(
-      (x) => {
-        if (x.email != '') {
-          this.router.navigate(['dashboard']);
-        }
-      },
-      (err) => {
-        console.log('err', err);
-      }
-    );
+    this.dataService.userLogin(loginform.getRawValue()).subscribe((x) => {
+      this.router.navigate(['home']);
+    });
   }
 }

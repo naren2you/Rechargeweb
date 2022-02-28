@@ -1,22 +1,27 @@
-import { Component } from '@angular/core';
-import { ApiService } from './services/api.service';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'Mobile recharge';
   loginInUser: string = 'Guest';
   isLoggedIn: boolean = false;
-
+  userData: any;
   constructor(private auth: AuthService) {
-    auth.getLoggedInName.subscribe((islogin) => {
-      if (islogin) {
-        this.isLoggedIn = true;
-      }
+    this.auth.isLoggedIn.subscribe((x) => {
+      this.isLoggedIn = x;
     });
+  }
+
+  ngOnInit(): void {
+    if (this.auth.loggedIn()) {
+      this.isLoggedIn = true;
+    } else {
+      this.isLoggedIn = false;
+    }
   }
 
   logOut() {

@@ -9,15 +9,36 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AddPlansComponent } from './pages/plans/add-plans/add-plans.component';
 import { ListPlansComponent } from './pages/plans/list-plans/list-plans.component';
-
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { FilterPipeModule } from 'ngx-filter-pipe';
+import { ToastrModule } from 'ngx-toastr';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, DashboardComponent, RegisterComponent, LoginComponent, AddPlansComponent, ListPlansComponent],
-  imports: [BrowserModule, ReactiveFormsModule, FormsModule, HttpClientModule, AppRoutingModule, TooltipModule.forRoot()],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    DashboardComponent,
+    RegisterComponent,
+    LoginComponent,
+    ListPlansComponent,
+    PageNotFoundComponent,
+  ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    TooltipModule.forRoot(),
+    ModalModule.forRoot(),
+    FilterPipeModule,
+    ToastrModule.forRoot(),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

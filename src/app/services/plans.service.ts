@@ -11,13 +11,46 @@ export class PlansService {
   baseUrl: string = 'http://localhost/angularCURD/plans/';
   constructor(private http: HttpClient) {}
 
-  getPlanList() {
-    console.log('i am in get plan list funciton');
+  public getPlanList() {
     return this.http.request('get', this.baseUrl + 'plan_read.php').pipe(
       map((x) => {
-        console.log(x);
         return x;
       })
     );
+  }
+
+  public updatePlan(planData: Plan, plan_id: string) {
+    console.log('i am in update plan funciton');
+    return this.http
+      .request('put', this.baseUrl + 'plan_update.php', {
+        body: planData,
+        params: { _id: plan_id },
+      })
+      .pipe(
+        map((x) => {
+          console.log(x);
+          return x;
+        })
+      );
+  }
+
+  public createPlan(planData: Plan) {
+    return this.http
+      .request('post', this.baseUrl + 'plan_create.php', { body: planData })
+      .pipe(
+        map((planres: any) => {
+          return planres;
+        })
+      );
+  }
+
+  public deletePlan(plan_id: number) {
+    return this.http
+      .request('get', this.baseUrl + 'plan_delete.php', { params: { _id: plan_id }, })
+      .pipe(
+        map((planres: any) => {
+          return planres;
+        })
+      );
   }
 }

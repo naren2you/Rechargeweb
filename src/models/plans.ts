@@ -1,6 +1,7 @@
 export class Plan {
   public _id: number;
   public operator: string;
+  public country: string;
   public plan_name: string;
   public plan_value: string;
   public Internet_details: string;
@@ -12,6 +13,7 @@ export class Plan {
   constructor(
     _id: number,
     operator: string,
+    country: string,
     plan_name: string,
     plan_value: string,
     Internet_details: string,
@@ -22,6 +24,7 @@ export class Plan {
   ) {
     this._id = _id;
     this.operator = operator;
+    this.country = country;
     this.plan_name = plan_name;
     this.plan_value = plan_value;
     this.Internet_details = Internet_details;
