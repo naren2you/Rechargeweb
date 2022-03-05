@@ -40,14 +40,11 @@ export class ApiService {
       .pipe(
         map((userres: any) => {
           if (userres.msg == 'Success') {
-            if (userres?.body[0]) {
-              this.auth.setToken(userres?.body[0]);
-              this.toastr.success(
-                userres?.body[0].f_name + ' ' + userres?.body[0].l_name,
-                'Welcome!'
-              );
-            }
-
+            this.auth.setToken(userres?.body[0]);
+            this.toastr.success(
+              userres?.body[0].f_name + ' ' + userres?.body[0].l_name,
+              'Welcome!'
+            );
             return userres.body;
           } else {
             this.toastr.error(
@@ -56,6 +53,48 @@ export class ApiService {
             );
             return false;
           }
+        })
+      );
+  }
+
+  public updateAgent(userData: Users, user_id: string) {
+    return this.httpClient
+      .request('put', this.baseUrl + 'agent/updateAgent.php', {
+        body: userData,
+        params: { _id: user_id },
+      })
+      .pipe(
+        map((x) => {
+          return x;
+        })
+      );
+  }
+
+  public getAgentList(agentType: number, createdBy: string) {
+    return this.httpClient
+      .request(
+        'get',
+        this.baseUrl +
+          'agent/agentList.php?agentType=' +
+          agentType +
+          '&createdBy=' +
+          createdBy
+      )
+      .pipe(
+        map((x: any) => {
+          return x;
+        })
+      );
+  }
+
+  public deleteAgent(user_id: number) {
+    return this.httpClient
+      .request('get', this.baseUrl + 'agent/deleteAgent.php', {
+        params: { _id: user_id },
+      })
+      .pipe(
+        map((planres: any) => {
+          return planres;
         })
       );
   }

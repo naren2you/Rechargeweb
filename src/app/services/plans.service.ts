@@ -20,7 +20,6 @@ export class PlansService {
   }
 
   public updatePlan(planData: Plan, plan_id: string) {
-    console.log('i am in update plan funciton');
     return this.http
       .request('put', this.baseUrl + 'plan_update.php', {
         body: planData,
@@ -28,7 +27,6 @@ export class PlansService {
       })
       .pipe(
         map((x) => {
-          console.log(x);
           return x;
         })
       );
@@ -46,7 +44,9 @@ export class PlansService {
 
   public deletePlan(plan_id: number) {
     return this.http
-      .request('get', this.baseUrl + 'plan_delete.php', { params: { _id: plan_id }, })
+      .request('get', this.baseUrl + 'plan_delete.php', {
+        params: { _id: plan_id },
+      })
       .pipe(
         map((planres: any) => {
           return planres;

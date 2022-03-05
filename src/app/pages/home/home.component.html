@@ -1,0 +1,142 @@
+<div class="container home_container">
+  <div class="row h-100">
+    <div class="col-md-6 d-flex">
+      <div class="home_left align-self-center w-100">
+        <h2 class="mt-5">
+          Welcome to recharge website<br /><span>Best way to recharge</span>
+        </h2>
+        <div class="row">
+          <form class="row g-2" autocomplete="off" [formGroup]="homeForm">
+            <div class="col-md-12">
+              <label class="form-label" for="mobileNuber">Mobile Number</label>
+              <input
+                type="tel"
+                name="mobileNuber"
+                formControlName="mobileNuber"
+                autocomplete="off"
+                class="form-control"
+              />
+            </div>
+            <div class="col-md-6">
+              <select
+                formControlName="country"
+                class="form-select"
+                aria-label="Select country"
+              >
+                <option value="All">Select country</option>
+                <option value="Haiti">Haiti</option>
+                <option value="Dominican Republic">Dominican Republic</option>
+                <option value="Chile">Chile</option>
+                <option value="Mexico">Mexico</option>
+                <option value="Panama">Panama</option>
+                <option value="Bolivia">Bolivia</option>
+                <option value="Ecuador">Ecuador</option>
+                <option value="colombia">colombia</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <select
+                formControlName="operator"
+                class="form-select"
+                aria-label="Select operator"
+              >
+                <option value="All">Select operator</option>
+                <option *ngFor="let op of filteredPlanList" [value]="op">
+                  {{ op }}
+                </option>
+              </select>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 d-flex">
+      <img
+        src="../../assets/img/vector-art-2 (1).png"
+        alt=""
+        *ngIf="planDetails.length == 0"
+        class="align-self-center w-100"
+      />
+      <div class="container">
+        <div class="row mt-5" *ngIf="planDetails.length > 0">
+          <div
+            class="col-xl-3 col-sm-6 col-12 cursor-pointer"
+            *ngFor="let pd of planDetails"
+          >
+            <div class="card mt-2" (click)="openPlan(pd)">
+              <div class="card-content">
+                <div class="card-body">
+                  <div class="media d-flex">
+                    <div class="media-body text-right">
+                      <h3>
+                        {{ pd.plan_value }}Rs <i class="bi bi-folder-fill"></i>
+                      </h3>
+                      <span class="font-weight-bold">{{ pd.plan_name }}</span
+                      ><Br />
+                      <span class="font-weight-light">{{
+                        pd.plan_details
+                      }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  bsModal
+  #modal="bs-modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="dialog-events-name"
+>
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-events-name" class="modal-title pull-left">
+          Selected Plan Details
+        </h4>
+        <button
+          type="button"
+          class="close pull-right btn-close"
+          aria-label="Close"
+          (click)="modal.hide()"
+        >
+          <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h4 class="title">Name: {{ selectedPlan?.plan_name }}</h4>
+        <p class="title">Amount: {{ selectedPlan?.plan_value }}Rs</p>
+        <p>Operator: {{ selectedPlan?.operator }}</p>
+        <p>Talk time: {{ selectedPlan?.talk_value }}</p>
+        <p>Details: {{ selectedPlan?.plan_details }}</p>
+        <p>Internet details: {{ selectedPlan?.internet_details }}</p>
+        <p>Validity: {{ selectedPlan?.validity }}</p>
+      </div>
+      <div class="modal-footer">
+        <div class="container">
+          <div class="col-md-12 mt-2">
+            <div class="info float-start small">
+              {{ selectedPlan?.othe_details }}
+            </div>
+            <button
+              type="submit"
+              class="btn btn-success float-end"
+              (click)="saveToList()"
+            >
+              Buy
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -8,6 +8,8 @@ export class Users {
   public mobile: string;
   public country: string;
   public language: string;
+  public balanceAmount: string;
+  public created_by: string;
 
   constructor(
     _id: number,
@@ -18,7 +20,9 @@ export class Users {
     user_type: number,
     mobile: string,
     country: string,
-    language: string
+    language: string,
+    balanceAmount: string,
+    created_by: string
   ) {
     this._id = _id;
     this.f_name = f_name;
@@ -29,5 +33,7 @@ export class Users {
     this.mobile = mobile;
     this.country = country;
     this.language = language;
+    this.balanceAmount = balanceAmount;
+    this.created_by = created_by;
   }
 }

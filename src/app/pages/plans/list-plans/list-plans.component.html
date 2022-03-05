@@ -129,6 +129,24 @@
           (ngSubmit)="saveToList()"
           autocomplete="off"
         >
+        <div class="col-md-4">
+          <label for="country" class="form-label">Select country</label>
+          <select
+            formControlName="country"
+            class="form-select"
+            aria-label="Select country"
+          >
+            <option selected>Open this select menu</option>
+            <option value="Haiti">Haiti</option>
+            <option value="Dominican Republic">Dominican Republic</option>
+            <option value="Chile">Chile</option>
+            <option value="Mexico">Mexico</option>
+            <option value="Panama">Panama</option>
+            <option value="Bolivia">Bolivia</option>
+            <option value="Ecuador">Ecuador</option>
+            <option value="colombia">colombia</option>
+          </select>
+        </div>
           <div class="col-md-4">
             <label for="operator" class="form-label">Mobile Operator</label>
             <select
@@ -153,20 +171,7 @@
               class="form-control"
             />
           </div>
-          <div class="col-md-4">
-            <label for="country" class="form-label">Country</label>
-            <select
-              formControlName="country"
-              class="form-select"
-              aria-label="Default select example"
-            >
-              <option value="">Select country</option>
-              <option value="India">India</option>
-              <option value="Srilanka">Srilanka</option>
-              <option value="Bangaladesh">Bangaladesh</option>
-              <option value="America">America</option>
-            </select>
-          </div>
+        
           <div class="col-md-3">
             <label class="form-label" for="plan_value">Plan value</label>
             <input

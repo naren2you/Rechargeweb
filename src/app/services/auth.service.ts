@@ -10,6 +10,9 @@ export class AuthService {
 
   setToken(userData: Users) {
     localStorage.setItem('token', userData.email);
+    if (userData._id) {
+      localStorage.setItem('_id', userData._id.toString());
+    }
     localStorage.setItem('username', userData.f_name + ' ' + userData.l_name);
     localStorage.setItem('user_type', userData.user_type.toString());
     localStorage.setItem('language', userData.language);
@@ -17,11 +20,16 @@ export class AuthService {
   }
 
   getToken() {
-    return localStorage.getItem('token');
+    let userData: any = {};
+    userData['token'] = localStorage.getItem('token');
+    userData['username'] = localStorage.getItem('username');
+    userData['user_type'] = localStorage.getItem('user_type');
+    userData['language'] = localStorage.getItem('language');
+    userData['_id'] = localStorage.getItem('_id');
+    return userData;
   }
 
   loggedIn() {
-    this.isLoggedIn.emit(!!localStorage.getItem('token'));
     return !!localStorage.getItem('token');
   }
 

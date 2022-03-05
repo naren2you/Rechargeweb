@@ -8,7 +8,8 @@ import {
 } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { ApiService } from '../services/api.service';
+import { ApiService } from '../../services/api.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -21,6 +22,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private dataService: ApiService,
+    private auth: AuthService,
     private router: Router
   ) {
     this.regForm = this.fb.group({
@@ -35,13 +37,15 @@ export class RegisterComponent implements OnInit {
       user_type: ['', Validators.required],
       country: ['', Validators.required],
       language: ['', Validators.required],
+      created_by: [''],
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.regForm.controls['created_by'].patchValue(this.auth.getToken()._id);
+  }
 
   postData(regForm: any) {
-    console.log(regForm.getRawValue());
     this.dataService.userRegistration(regForm.getRawValue()).subscribe((x) => {
       this.router.navigate(['login']);
     });
