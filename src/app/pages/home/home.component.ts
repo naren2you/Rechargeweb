@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { PlansService } from 'src/app/services/plans.service';
+import { TransService } from 'src/app/services/trans.service';
 import { Plan } from 'src/models/plans';
 import {
   FormGroup,
@@ -10,6 +11,8 @@ import {
 } from '@angular/forms';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { AuthService } from 'src/app/services/auth.service';
+import { Trans } from 'src/models/trans';
 
 @Component({
   selector: 'app-home',
@@ -24,8 +27,14 @@ export class HomeComponent implements OnInit {
   homeForm: FormGroup;
   modalRef?: BsModalRef;
   selectedPlan: any;
+  LoggedIn: boolean = false;
 
-  constructor(private fb: FormBuilder, private planService: PlansService) {
+  constructor(
+    private fb: FormBuilder,
+    private planService: PlansService,
+    private auth: AuthService,
+    private transervice: TransService
+  ) {
     this.homeForm = this.fb.group({
       mobileNuber: ['', Validators.required],
       country: ['All', Validators.required],
@@ -44,17 +53,8 @@ export class HomeComponent implements OnInit {
     this.getPlanList();
   }
 
-  openPlan(plan: Plan) {
-    console.log(plan);
-    this.selectedPlan = plan;
-    this.modal?.show();
-  }
-
-  saveToList() {
-    console.log(this.selectedPlan);
-  }
-
   getPlanList() {
+    this.LoggedIn = this.auth.loggedIn();
     this.planList = [];
     this.planService.getPlanList().subscribe((x: any) => {
       if (x.body) {
@@ -87,10 +87,47 @@ export class HomeComponent implements OnInit {
   getPlanDetails(operator: string) {
     if (operator != 'All') {
       this.planDetails = this.planList.filter(
-        (item) => item.operator == operator
+        (item) =>
+          item.operator == operator &&
+          item.country == this.homeForm.controls['country'].value
       );
     } else {
       this.planDetails = [];
     }
+  }
+
+  openPlan(plan: Plan) {
+    this.selectedPlan = plan;
+    this.modal?.show();
+  }
+
+  saveToList() {
+    // this.selectedPlan;
+
+    let transData: any = {
+      mobile: this.homeForm.controls['mobileNuber'].value,
+      country: this.selectedPlan.country,
+      operator: this.selectedPlan.operator,
+      plan_id: this.selectedPlan._id,
+      plan_name: this.selectedPlan.plan_name,
+      plan_value: this.selectedPlan.plan_value,
+      Internet_details: this.selectedPlan.Internet_details,
+      talk_value: this.selectedPlan.talk_value,
+      validity: this.selectedPlan.validity,
+      plan_details: this.selectedPlan.plan_details,
+      status: 'Requested',
+      requestBy: this.auth.getToken()._id,
+    };
+
+    if (!transData.requestBy || transData.requestBy == null) {
+      localStorage.setItem('mobileData', JSON.stringify(transData));
+    }
+
+
+    //for new user Previous data should be taken and saved...
+    this.transervice.createTrans(transData).subscribe((x) => {
+      this.modal?.hide();
+      this.selectedPlan = {};
+    });
   }
 }

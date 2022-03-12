@@ -17,6 +17,7 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
 import { ToastrModule } from 'ngx-toastr';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { AgentsComponent } from './pages/agents/agents.component';
+import { TransactionComponent } from './pages/transaction/transaction.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { AgentsComponent } from './pages/agents/agents.component';
     ListPlansComponent,
     PageNotFoundComponent,
     AgentsComponent,
+    TransactionComponent,
   ],
   imports: [
     BrowserModule,

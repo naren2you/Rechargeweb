@@ -50,14 +50,14 @@
       </thead>
       <tbody>
         <tr *ngFor="let list of userList | filterBy: userFilter">
-          <td>
-            {{ list.l_name + " " + list.f_name }}
-          </td>
+          <td>{{ list.l_name + " " + list.f_name }}</td>
           <td>{{ list.email }}</td>
           <td>{{ list.mobile }}</td>
           <td>{{ list.country }}</td>
-          <td>{{ list.balanceAmount }}</td>
-          <td [width]="90">
+          <td *ngIf="list._id != currentListId" (click)="editUser(list)">
+            {{ list.balanceAmount }}
+          </td>
+          <td *ngIf="list._id != currentListId" [width]="90">
             <div class="d-flex justify-content-between">
               <button
                 type="button"
@@ -67,13 +67,27 @@
               >
                 <i class="bi bi-trash-fill"></i>
               </button>
+            </div>
+          </td>
+          <td colspan="2" *ngIf="list._id == currentListId">
+            <input
+              type="text"
+              class="form-control"
+              [value]="list.balanceAmount"
+            />
+            <div class="d-flex justify-content-between pt-2">
               <button
                 type="button"
                 class="btn btn-sm btn-secondary"
                 tooltip="Edit Plan"
-                (click)="editUser(list)"
               >
-                <i class="bi bi-pencil-fill"></i>
+                Edit user
+              </button>
+              <button type="button" class="btn btn-sm btn-danger">
+                With draw
+              </button>
+              <button type="button" class="btn btn-sm btn-success">
+                Add amount
               </button>
             </div>
           </td>
@@ -160,8 +174,12 @@
               aria-label="Default select example"
             >
               <option selected>Open this select menu</option>
-              <option value="1">Master Agent</option>
-              <option value="2">Agent</option>
+              <option *ngIf="loggedInUserData.user_type == 1" value="1">
+                Master Agent
+              </option>
+              <option *ngIf="loggedInUserData.user_type == 1" value="2">
+                Agent
+              </option>
               <option value="3">User</option>
             </select>
           </div>

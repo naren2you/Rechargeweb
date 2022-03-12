@@ -25,6 +25,7 @@ export class ApiService {
   ) {}
 
   public userRegistration(userData: Users) {
+    console.log(userData);
     return this.httpClient
       .request('post', this.baseUrl + '/register.php', { body: userData })
       .pipe(

@@ -61,7 +61,7 @@
       <div class="container">
         <div class="row mt-5" *ngIf="planDetails.length > 0">
           <div
-            class="col-xl-3 col-sm-6 col-12 cursor-pointer"
+            class="col-md-6 col-12 cursor-pointer"
             *ngFor="let pd of planDetails"
           >
             <div class="card mt-2" (click)="openPlan(pd)">
@@ -131,8 +131,10 @@
               type="submit"
               class="btn btn-success float-end"
               (click)="saveToList()"
+              
             >
-              Buy
+             <span *ngIf="LoggedIn">Recharge</span>
+             <span *ngIf="!LoggedIn">Login</span>
             </button>
           </div>
         </div>

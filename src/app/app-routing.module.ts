@@ -11,6 +11,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ListPlansComponent } from './pages/plans/list-plans/list-plans.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { AgentsComponent } from './pages/agents/agents.component';
+import { TransactionComponent } from './pages/transaction/transaction.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,11 +20,10 @@ const routes: Routes = [
   {
     path: 'registration',
     component: RegisterComponent,
-    canActivate: [AuthGuard],
   },
   {
-    path: 'dashboard',
-    component: DashboardComponent,
+    path: 'transaction',
+    component: TransactionComponent,
     canActivate: [AuthGuard],
   },
   {

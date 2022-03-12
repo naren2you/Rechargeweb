@@ -10,6 +10,7 @@ import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -23,6 +24,7 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private dataService: ApiService,
     private auth: AuthService,
+    private toast: ToastrService,
     private router: Router
   ) {
     this.regForm = this.fb.group({
@@ -46,8 +48,13 @@ export class RegisterComponent implements OnInit {
   }
 
   postData(regForm: any) {
-    this.dataService.userRegistration(regForm.getRawValue()).subscribe((x) => {
-      this.router.navigate(['login']);
-    });
+    this.dataService.userRegistration(regForm.getRawValue()).subscribe(
+      (x) => {
+        this.router.navigate(['login']);
+      },
+      (error) => {
+        this.toast.error(error.error.msg);
+      }
+    );
   }
 }
