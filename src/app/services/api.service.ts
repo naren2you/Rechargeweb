@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { NgxSpinnerService } from 'ngx-spinner';
 //rxjs
 import { map } from 'rxjs/operators';
 
@@ -21,25 +22,29 @@ export class ApiService {
   constructor(
     private httpClient: HttpClient,
     private auth: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private spiner: NgxSpinnerService
   ) {}
 
   public userRegistration(userData: Users) {
-    console.log(userData);
+    this.spiner.show();
     return this.httpClient
       .request('post', this.baseUrl + '/register.php', { body: userData })
       .pipe(
         map((resulte: any) => {
+          this.spiner.hide();
           return resulte;
         })
       );
   }
 
   public userLogin(userData: any) {
+    this.spiner.show();
     return this.httpClient
       .request('post', this.baseUrl + 'login.php', { body: userData })
       .pipe(
         map((userres: any) => {
+          this.spiner.hide();
           if (userres.msg == 'Success') {
             this.auth.setToken(userres?.body[0]);
             this.toastr.success(
@@ -59,6 +64,7 @@ export class ApiService {
   }
 
   public updateAgent(userData: Users, user_id: string) {
+    this.spiner.show();
     return this.httpClient
       .request('put', this.baseUrl + 'agent/updateAgent.php', {
         body: userData,
@@ -66,12 +72,29 @@ export class ApiService {
       })
       .pipe(
         map((x) => {
+          this.spiner.hide();
+          return x;
+        })
+      );
+  }
+
+  public updateAmount(userData: Users, user_id: string) {
+    this.spiner.show();
+    return this.httpClient
+      .request('put', this.baseUrl + 'agent/updateAmount.php', {
+        body: userData,
+        params: { _id: user_id },
+      })
+      .pipe(
+        map((x) => {
+          this.spiner.hide();
           return x;
         })
       );
   }
 
   public getAgentList(agentType: number, createdBy: string) {
+    this.spiner.show();
     return this.httpClient
       .request(
         'get',
@@ -83,18 +106,21 @@ export class ApiService {
       )
       .pipe(
         map((x: any) => {
+          this.spiner.hide();
           return x;
         })
       );
   }
 
   public deleteAgent(user_id: number) {
+    this.spiner.show();
     return this.httpClient
       .request('get', this.baseUrl + 'agent/deleteAgent.php', {
         params: { _id: user_id },
       })
       .pipe(
         map((planres: any) => {
+          this.spiner.hide();
           return planres;
         })
       );

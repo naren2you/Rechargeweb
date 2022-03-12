@@ -4,6 +4,7 @@ import { Trans } from 'src/models/trans';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
 import {
   FormGroup,
   FormControl,
@@ -20,26 +21,24 @@ import { Router } from '@angular/router';
 export class TransactionComponent implements OnInit {
   @ViewChild(ModalDirective, { static: false }) modal?: ModalDirective;
   transFilter: any = { operator: '' };
-  itemform: FormGroup;
   currentListId: string = '';
   deleteTransId: number = 0;
   transList: Trans[] = [];
   transNorecord: string = '';
+  loggedInUserData: any = {};
   modalRef?: BsModalRef;
+  currentList: any = {};
   constructor(
     private transService: TransService,
     private fb: FormBuilder,
     private router: Router,
     private modalService: BsModalService,
-    private toast: ToastrService
-  ) {
-    this.itemform = this.fb.group({
-      status: ['', Validators.required],
-      processedBy: [''],
-    });
-  }
+    private toast: ToastrService,
+    private auth: AuthService
+  ) {}
 
   ngOnInit(): void {
+    this.loggedInUserData = this.auth.getToken();
     this.getTransList();
   }
 
@@ -58,25 +57,21 @@ export class TransactionComponent implements OnInit {
     );
   }
 
-  addTrans() {
-    this.currentListId = '';
-    this.itemform.reset();
-    this.modal?.show();
-  }
-
   editTrans(list: any) {
     this.currentListId = '';
     if (list._id) {
       this.currentListId = list._id;
     }
-    this.itemform.patchValue(list);
-    this.modal?.show();
+    this.currentList = list;
   }
 
-  saveToList() {
+  saveToList(list:any) {
+    let paramObj: any = {};
+    paramObj.status = list.selectedstatus;
+    paramObj.processedBy = this.loggedInUserData._id;
     if (this.currentListId != '') {
       this.transService
-        .updateTrans(this.itemform.getRawValue(), this.currentListId)
+        .updateTrans(paramObj, this.currentListId)
         .subscribe((x) => {
           this.currentListId = '';
           this.getTransList();

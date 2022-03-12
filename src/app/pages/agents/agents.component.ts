@@ -28,6 +28,7 @@ export class AgentsComponent implements OnInit {
   userNorecord: string = '';
   modalRef?: BsModalRef;
   loggedInUserData: any = {};
+  selectedAgent: any = {};
 
   constructor(
     private apiService: ApiService,
@@ -77,26 +78,62 @@ export class AgentsComponent implements OnInit {
     this.modal?.show();
   }
 
-  editUser(user: any) {
+  openEditView(user: any) {
     this.currentListId = '';
     if (user._id) {
       this.currentListId = user._id;
+      this.selectedAgent = user;
+    } else {
+      this.selectedAgent = {};
     }
-    this.itemform.patchValue(user);
-    this.itemform.controls['password'].disable();
-    this.itemform.controls['user_type'].disable();
-    this.itemform.controls['email'].disable();
+  }
+
+  editUser() {
+    this.itemform.patchValue(this.selectedAgent);
+    if (this.selectedAgent.user_type != 1) {
+      this.itemform.controls['password'].disable();
+      this.itemform.controls['user_type'].disable();
+      this.itemform.controls['email'].disable();
+      // this.itemform.controls['balanceAmount'].disable();
+    }
     this.modal?.show();
+  }
+
+  withDrawAmount(curRow: any, trantype: string, updatedvalue: string) {
+    let queryParams: any = {};
+    queryParams._id = curRow._id;
+    if (trantype == 'add') {
+      queryParams.balanceAmount =
+        parseInt(curRow.balanceAmount) + parseInt(updatedvalue);
+    } else {
+      queryParams.balanceAmount =
+        parseInt(curRow.balanceAmount) - parseInt(updatedvalue);
+    }
+    this.apiService
+      .updateAmount(queryParams, this.currentListId)
+      .subscribe(
+        (x: any) => {
+          this.currentListId = '';
+          this.selectedAgent = {};
+          this.getUserList();
+          this.modal?.hide();
+          this.toast.success(x.msg);
+        },
+        (error) => {
+          this.toast.error(error.error.msg);
+          console.error(error.error.msg);
+        }
+      );
   }
 
   saveToList() {
     if (this.currentListId != '') {
-      console.log(this.itemform.getRawValue());
       this.apiService
         .updateAgent(this.itemform.getRawValue(), this.currentListId)
         .subscribe(
           (x: any) => {
             this.currentListId = '';
+            this.selectedAgent = {};
             this.getUserList();
             this.modal?.hide();
             this.toast.success(x.msg);

@@ -10,6 +10,7 @@ export class Users {
   public language: string;
   public balanceAmount: string;
   public created_by: string;
+  public updatedAmount?: string;
 
   constructor(
     _id: number,

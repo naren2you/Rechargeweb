@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxSpinnerComponent, NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -42,7 +43,9 @@ import { TransactionComponent } from './pages/transaction/transaction.component'
     ModalModule.forRoot(),
     FilterPipeModule,
     ToastrModule.forRoot(),
+    NgxSpinnerModule
   ],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
   bootstrap: [AppComponent],
 })

@@ -49,36 +49,42 @@
         <th>Validity</th>
         <th>Resuted On</th>
         <th>Status</th>
-        <th [width]="90">Actions</th>
       </thead>
       <tbody>
         <tr *ngFor="let list of transList | filterBy: transFilter">
           <td>{{ list.mobile }}</td>
           <td>{{ list.operator }}</td>
           <td>{{ list.country }}</td>
-          <td>{{ list.plan_name }}</td>         
+          <td>{{ list.plan_name }}</td>
           <td>{{ list.plan_value }}</td>
           <td>{{ list.validity }}</td>
           <td>{{ list.requestOn }}</td>
-          <td>{{ list.status }}</td>
-          <td [width]="90">
-            <div class="d-flex justify-content-between">
-              <!-- <button
-                type="button"
-                class="btn btn-sm btn-danger"
-                tooltip="Delete Tran"
-                (click)="deleteTrans(template, list._id)"
+          <td (click)="editTrans(list)">
+            <div class="w-100">
+              <div *ngIf="currentListId != list._id">
+                {{ list.status }}
+              </div>
+              <div
+                class="d-flex justify-content-between"
+                *ngIf="currentListId == list._id"
               >
-                <i class="bi bi-trash-fill"></i>
-              </button> -->
-              <button
-                type="button"
-                class="btn btn-sm btn-secondary"
-                tooltip="Edit Tran"
-                (click)="editTrans(list)"
-              >
-                <i class="bi bi-pencil-fill"></i>
-              </button>
+                <select
+                  [(ngModel)]="list.selectedstatus"
+                  class="form-select form-select-sm"
+                  aria-label="Select status"
+                >
+                  <option value="Requested">Requested</option>
+                  <option value="Inprogress">InProgress</option>
+                  <option value="Processed">Processed</option>
+                </select>
+                <button
+                  type="button"
+                  class="btn btn-primary btn-sm ml-2"
+                  (click)="saveToList(list)"
+                >
+                  save
+                </button>
+              </div>
             </div>
           </td>
         </tr>
@@ -98,51 +104,6 @@
   role="dialog"
   aria-labelledby="dialog-events-name"
 >
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 id="dialog-events-name" class="modal-title pull-left">
-          {{ this.currentListId ? "Edit" : "Add" }} Plan
-          <span *ngIf="this.currentListId">: {{ this.currentListId }}</span>
-        </h4>
-        <button
-          type="button"
-          class="close pull-right btn-close"
-          aria-label="Close"
-          (click)="modal.hide()"
-        >
-          <span aria-hidden="true" class="visually-hidden">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form
-          class="row g-2"
-          [formGroup]="itemform"
-          (ngSubmit)="saveToList()"
-          autocomplete="off"
-        >
-          <div class="col-md-4">
-            <label for="country" class="form-label">Status</label>
-            <select
-              formControlName="status"
-              class="form-select"
-              aria-label="Select status"
-            >
-              <option value="Requested">Requested</option>
-              <option value="Inprogress">InProgress</option>
-              <option value="Processed">Processed</option>
-            </select>
-          </div>
-
-          <div class="col-md-12 mt-2">
-            <button type="submit" class="btn btn-success float-end">
-              Recharge
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
 </div>
 
 <ng-template #template>

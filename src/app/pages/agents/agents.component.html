@@ -54,7 +54,7 @@
           <td>{{ list.email }}</td>
           <td>{{ list.mobile }}</td>
           <td>{{ list.country }}</td>
-          <td *ngIf="list._id != currentListId" (click)="editUser(list)">
+          <td *ngIf="list._id != currentListId" (click)="openEditView(list)">
             {{ list.balanceAmount }}
           </td>
           <td *ngIf="list._id != currentListId" [width]="90">
@@ -72,21 +72,31 @@
           <td colspan="2" *ngIf="list._id == currentListId">
             <input
               type="text"
+              [(ngModel)]="list.updatededAmount"
               class="form-control"
-              [value]="list.balanceAmount"
+              [value]="list.updatededAmount"
             />
             <div class="d-flex justify-content-between pt-2">
               <button
                 type="button"
                 class="btn btn-sm btn-secondary"
                 tooltip="Edit Plan"
+                (click)="editUser()"
               >
                 Edit user
               </button>
-              <button type="button" class="btn btn-sm btn-danger">
+              <button
+                type="button"
+                class="btn btn-sm btn-danger"
+                (click)="withDrawAmount(list, 'draw', list.updatededAmount)"
+              >
                 With draw
               </button>
-              <button type="button" class="btn btn-sm btn-success">
+              <button
+                type="button"
+                class="btn btn-sm btn-success"
+                (click)="withDrawAmount(list, 'add', list.updatededAmount)"
+              >
                 Add amount
               </button>
             </div>

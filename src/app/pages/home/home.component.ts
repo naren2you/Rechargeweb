@@ -10,9 +10,9 @@ import {
   NgForm,
 } from '@angular/forms';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { AuthService } from 'src/app/services/auth.service';
-import { Trans } from 'src/models/trans';
+import { Router, CanActivate } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -33,7 +33,8 @@ export class HomeComponent implements OnInit {
     private fb: FormBuilder,
     private planService: PlansService,
     private auth: AuthService,
-    private transervice: TransService
+    private transervice: TransService,
+    private router: Router
   ) {
     this.homeForm = this.fb.group({
       mobileNuber: ['', Validators.required],
@@ -121,13 +122,15 @@ export class HomeComponent implements OnInit {
 
     if (!transData.requestBy || transData.requestBy == null) {
       localStorage.setItem('mobileData', JSON.stringify(transData));
+      this.modal?.hide();
+      this.router.navigate(['login']);
     }
-
 
     //for new user Previous data should be taken and saved...
     this.transervice.createTrans(transData).subscribe((x) => {
-      this.modal?.hide();
       this.selectedPlan = {};
+      this.modal?.hide();
+      this.homeForm.reset();
     });
   }
 }
