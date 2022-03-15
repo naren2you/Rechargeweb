@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, isDevMode } from '@angular/core';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -11,6 +11,12 @@ export class AppComponent {
   isLoggedIn: boolean = false;
   loggedInUserData: any;
   constructor(private auth: AuthService) {
+    if (isDevMode()) {
+      console.log('Development!');
+    } else {
+      console.log('Production!');
+    }
+
     this.auth.isLoggedIn.subscribe((x) => {
       this.initializePage();
     });
@@ -28,6 +34,7 @@ export class AppComponent {
     }
 
     this.loggedInUserData = this.auth.getToken();
+    console.log(this.loggedInUserData);
     if (this.loggedInUserData?.username) {
       this.loginInUser = this.loggedInUserData.username;
     }

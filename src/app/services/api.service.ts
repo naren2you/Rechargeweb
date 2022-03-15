@@ -12,12 +12,13 @@ import { ToastrService } from 'ngx-toastr';
 
 //models
 import { Users } from 'src/models/users';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  baseUrl: string = 'http://localhost/angularCURD/';
+  baseUrl: string = environment.ApiService_baseUrl;
 
   constructor(
     private httpClient: HttpClient,

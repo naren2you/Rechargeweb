@@ -185,12 +185,12 @@
             >
               <option selected>Open this select menu</option>
               <option *ngIf="loggedInUserData.user_type == 1" value="1">
-                Master Agent
+                Admin
               </option>
               <option *ngIf="loggedInUserData.user_type == 1" value="2">
-                Agent
+               Master Agent
               </option>
-              <option value="3">User</option>
+              <option value="3">Agent</option>
             </select>
           </div>
           <div class="col-md-6">
@@ -231,9 +231,9 @@
               aria-label="Select language"
             >
               <option selected>Open this select menu</option>
-              <option value="Haiti">Tamil</option>
-              <option value="Dominican Republic">English</option>
-              <option value="Dominican Republic">Telegu</option>
+              <option value="Tamil">Tamil</option>
+              <option value="English">English</option>
+              <option value="Telegu">Telegu</option>
             </select>
           </div>
           <div class="col-md-6">

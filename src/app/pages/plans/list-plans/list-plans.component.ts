@@ -3,6 +3,9 @@ import { PlansService } from 'src/app/services/plans.service';
 import { Plan } from 'src/models/plans';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
 import {
   FormGroup,
   FormControl,
@@ -25,12 +28,14 @@ export class ListPlansComponent implements OnInit {
   planList: Plan[] = [];
   planNorecord: string = '';
   modalRef?: BsModalRef;
+  private _jsonURL = '';
 
   constructor(
     private planService: PlansService,
     private fb: FormBuilder,
     private router: Router,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private http: HttpClient
   ) {
     this.itemform = this.fb.group({
       operator: ['', Validators.required],
@@ -43,11 +48,18 @@ export class ListPlansComponent implements OnInit {
       plan_details: ['', Validators.required],
       othe_details: [''],
     });
+
+    this.getJSON().subscribe((data) => {
+      console.log(data);
+    });
   }
+
   ngOnInit(): void {
     this.getPlanList();
   }
-
+  getJSON(): Observable<any> {
+    return this.http.get(this._jsonURL);
+  }
   getPlanList() {
     this.planService.getPlanList().subscribe((x: any) => {
       if (x.body) {

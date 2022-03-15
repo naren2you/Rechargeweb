@@ -1,0 +1,62 @@
+{
+  "CountryList": [
+    "Haiti",
+    "Dominican Republic",
+    "Chile",
+    "Mexico",
+    "Panama",
+    "Bolivia",
+    "Ecuador",
+    "colombia"
+  ],
+  "CountryWiseOperatorList": {
+    "Haiti": {
+      "Airtel": "Airtel",
+      "Aircel": "Aircel",
+      "Vodafone": "Vodafone",
+      "BSNL": "BSNL"
+    },
+    "Dominican Republic": {
+      "Airtel": "Airtel",
+      "Aircel": "Aircel",
+      "Vodafone": "Vodafone",
+      "BSNL": "BSNL"
+    },
+    "Chile": {
+      "Airtel": "Airtel",
+      "Aircel": "Aircel",
+      "Vodafone": "Vodafone",
+      "BSNL": "BSNL"
+    },
+    "Panama": {
+      "Airtel": "Airtel",
+      "Aircel": "Aircel",
+      "Vodafone": "Vodafone",
+      "BSNL": "BSNL"
+    },
+    "Mexico": {
+      "Airtel": "Airtel",
+      "Aircel": "Aircel",
+      "Vodafone": "Vodafone",
+      "BSNL": "BSNL"
+    },
+    "Bolivia": {
+      "Airtel": "Airtel",
+      "Aircel": "Aircel",
+      "Vodafone": "Vodafone",
+      "BSNL": "BSNL"
+    },
+    "Ecuador": {
+      "Airtel": "Airtel",
+      "Aircel": "Aircel",
+      "Vodafone": "Vodafone",
+      "BSNL": "BSNL"
+    },
+    "colombia": {
+      "Airtel": "Airtel",
+      "Aircel": "Aircel",
+      "Vodafone": "Vodafone",
+      "BSNL": "BSNL"
+    }
+  }
+}

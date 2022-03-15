@@ -57,7 +57,7 @@
                 ><i class="bi bi-box-arrow-in-right"></i> Login</a
               >
             </li>
-            <li>
+            <li *ngIf="isLoggedIn && loggedInUserData.user_type == 1">
               <a class="dropdown-item" routerLink="/registration"
                 ><i class="bi bi-person-plus-fill"></i> Registor</a
               >

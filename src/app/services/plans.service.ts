@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Plan } from 'src/models/plans';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PlansService {
-  baseUrl: string = 'http://localhost/angularCURD/plans/';
+  baseUrl: string = environment.PlansService_baseUrl;
   constructor(private http: HttpClient, private spiner: NgxSpinnerService) {}
 
   public getPlanList() {

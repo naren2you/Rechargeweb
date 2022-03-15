@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Trans } from 'src/models/trans';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TransService {
-  baseUrl: string = 'http://localhost/angularCURD/trans/';
+  baseUrl: string = environment.TransService_baseUrl;
   constructor(private http: HttpClient, private spiner: NgxSpinnerService) {}
 
   public getTransList() {
